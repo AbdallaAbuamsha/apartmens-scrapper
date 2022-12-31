@@ -1,2 +1,4 @@
 # Project exclude paths
 /venv/
+/done_file.txt
+/exceptions.txt

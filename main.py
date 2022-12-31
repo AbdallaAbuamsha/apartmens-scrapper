@@ -101,17 +101,23 @@ def scroll_to_top(driver):
         .until(EC.visibility_of_element_located((By.XPATH, '//*[@id="_wf_contentholder"]/div[2]')))
     ActionChains(driver).move_to_element(driver.find_element(By.XPATH, '//*[@id="_wf_contentholder"]/div[2]')).perform()
 
-
-if __name__ == '__main__':
-    # get driver
+def get_driver():
     chrome_options = Options()
-#    chrome_options.add_argument("--headless")
+    #    chrome_options.add_argument("--headless")
     chrome_options.add_argument('--disable-gpu')
     chrome_options.add_argument("--disable-extensions")
     chrome_options.add_argument("disable-infobars")
     chrome_options.add_argument("window-size=1920x1080")
     s = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(options=chrome_options, service=s)
+    return driver
+
+
+if __name__ == '__main__':
+    # get driver
+    driver = get_driver()
+
+    # save first page
     inBerlin_wohnen_page = driver.window_handles[0]
 
     # get home page
@@ -125,9 +131,6 @@ if __name__ == '__main__':
 
     # loop forever and refresh the page
     while True:
-        # to ensure everytime we start from the top
-        scroll_to_top(driver)
-
         # get all items
         list_of_items = get_list_of_items(driver)
 
@@ -184,9 +187,9 @@ if __name__ == '__main__':
             elif 'gesobau' in url:
                 Gesobau().apply(driver)
             else:
-                exceptions.write(url)
-                exceptions.write('undefined company')
-                exceptions.write('-' * 30)
+                exceptions.write(url + '\n')
+                exceptions.write('undefined company\n')
+                exceptions.write(('-' * 30) + '\n')
             # save results
             done_file.write(url + '\n')
             #done_file.write(all_details_button.get_property('href') + '\n')
@@ -203,3 +206,5 @@ if __name__ == '__main__':
         time.sleep(1200)
         print('new start')
         driver.refresh()
+        # to ensure everytime we start from the top
+        scroll_to_top(driver)

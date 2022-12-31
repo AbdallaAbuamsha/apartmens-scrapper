@@ -58,7 +58,7 @@ class Howoge(Company):
             WebDriverWait(driver, 5) \
                 .until(EC.visibility_of_element_located(
                 (By.XPATH, '//*[@id="main"]/div[4]/div/div/div[7]/div/div/div[1]')))
-            time.sleep(2)
+            time.sleep(3)
     def remove_cookies_popup(self, driver):
         try:
             WebDriverWait(driver, 1) \
