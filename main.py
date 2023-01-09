@@ -34,6 +34,7 @@ def get_done_list():
 
 def set_search_parameters(driver):
     # go to second slider where the search exists -_-
+    driver.implicitly_wait(2)
     driver.find_element(By.CLASS_NAME, "flex-control-nav") \
         .find_elements(By.TAG_NAME, 'li')[1] \
         .click()
